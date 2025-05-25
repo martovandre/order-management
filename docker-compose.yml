@@ -1,0 +1,57 @@
+version: '1'
+
+services:
+  backend:
+    build:
+      context: ./order-management-api
+      dockerfile: Dockerfile
+    container_name: order_management_api
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
+      DB_NAME: db
+      FRONTEND_URL: http://localhost:4200
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./order-management-ui
+      dockerfile: Dockerfile
+    container_name: order_management_ui
+    restart: unless-stopped
+    ports:
+      - '4200:80'
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - app-network
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
+    driver: bridge
