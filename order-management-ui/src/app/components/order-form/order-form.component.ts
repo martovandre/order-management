@@ -46,9 +46,9 @@ export class OrderFormComponent {
 
   onSubmit() {
     if (this.orderForm.valid) {
-      this.orderService.addOrder(this.orderForm as any).subscribe({
+      this.orderService.addOrder(this.orderForm.value).subscribe({
         next: (response) => {
-          this.dialogRef.close('created'); // ✅ close on success
+          this.dialogRef.close('created');
         },
         error: (error) => {
           const message = error?.message || 'Failed to create order.';

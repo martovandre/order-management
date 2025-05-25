@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { Order } from '../models/order.model';
 import { environment } from '../../environments/environments';
+import { CreateOrderDto } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,8 @@ export class OrderService {
   private orders = new BehaviorSubject<Order[]>([]);
   orders$ = this.orders.asObservable();
 
-  addOrder(order: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/orders`, order.value).pipe(
+  addOrder(order: CreateOrderDto): Observable<CreateOrderDto> {
+    return this.http.post(`${environment.apiUrl}/orders`, order).pipe(
       tap((createdOrder: any) => {
         const current = this.orders.getValue();
         this.orders.next([...current, createdOrder]);
