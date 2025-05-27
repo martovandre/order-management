@@ -14,6 +14,6 @@ export class OrdersController {
 
   @Get()
   async findAll(@Query() filters?: OrderFilterDto) {
-    return this.orderService.findAll(filters)
+    return this.orderService.findAll(filters);
   }
 }

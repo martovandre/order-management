@@ -6,7 +6,13 @@ export class CreateOrdersTable implements MigrationInterface {
       new Table({
         name: 'orders',
         columns: [
-          { name: 'id', type: 'int', isPrimary: true, isGenerated: true, generationStrategy: 'increment' },
+          {
+            name: 'id',
+            type: 'int',
+            isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment',
+          },
           { name: 'orderNumber', type: 'varchar', isUnique: true },
           { name: 'paymentDescription', type: 'varchar' },
           { name: 'streetAddress', type: 'varchar' },

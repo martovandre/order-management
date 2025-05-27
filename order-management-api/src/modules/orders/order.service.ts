@@ -12,12 +12,16 @@ export class OrderService {
   ) {}
 
   async create(orderData: Partial<Order>) {
-    const existingOrder = await this.orderRepository.find({where: {
-      orderNumber: orderData.orderNumber
-    }})
+    const existingOrder = await this.orderRepository.find({
+      where: {
+        orderNumber: orderData.orderNumber,
+      },
+    });
 
-    if(existingOrder.length) {
-      throw new ConflictException(`Order number "${orderData.orderNumber}" already exists.`);
+    if (existingOrder.length) {
+      throw new ConflictException(
+        `Order number "${orderData.orderNumber}" already exists.`,
+      );
     }
     const order = this.orderRepository.create(orderData);
     return this.orderRepository.save(order);
