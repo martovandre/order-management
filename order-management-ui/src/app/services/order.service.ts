@@ -15,9 +15,9 @@ export class OrderService {
   private orders = new BehaviorSubject<Order[]>([]);
   orders$ = this.orders.asObservable();
 
-  addOrder(order: CreateOrderDto): Observable<CreateOrderDto> {
-    return this.http.post(`${environment.apiUrl}/orders`, order).pipe(
-      tap((createdOrder: any) => {
+  addOrder(order: CreateOrderDto): Observable<Order> {
+    return this.http.post<Order>(`${environment.apiUrl}/orders`, order).pipe(
+      tap((createdOrder: Order) => {
         const current = this.orders.getValue();
         this.orders.next([...current, createdOrder]);
       }),

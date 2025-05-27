@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, Validators, ReactiveFormsModule, FormControl, NonNullableFormBuilder } from '@angular/forms';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { OrderService } from '../../services/order.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CreateOrderDto } from '../../services/types';
 
 @Component({
   selector: 'app-order-form',
@@ -23,11 +24,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   ],
 })
 export class OrderFormComponent {
-  orderForm: FormGroup<any>;
+  orderForm: FormGroup<{
+    [K in keyof CreateOrderDto]: FormControl<CreateOrderDto[K]>
+  }>;
   error = '';
 
   constructor(
-    private fb: FormBuilder,
+    private fb: NonNullableFormBuilder,
     private dialogRef: MatDialogRef<OrderFormComponent>,
     private orderService: OrderService,
     private snackBar: MatSnackBar
@@ -46,8 +49,8 @@ export class OrderFormComponent {
 
   onSubmit() {
     if (this.orderForm.valid) {
-      this.orderService.addOrder(this.orderForm.value).subscribe({
-        next: (response) => {
+      this.orderService.addOrder(this.orderForm.value as CreateOrderDto).subscribe({
+        next: () => {
           this.dialogRef.close('created');
         },
         error: (error) => {
