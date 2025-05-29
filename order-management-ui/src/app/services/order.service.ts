@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { Order } from '../models/order.model';
 import { environment } from '../../environments/environments';
-import { CreateOrderDto } from './types';
+import { CreateOrderDto, OrderFilter } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +27,7 @@ export class OrderService {
     );
   }
 
-  getOrders(filters?: { paymentDescription?: string; country?: string }) {
+  getOrders(filters?: OrderFilter) {
     let params = new HttpParams();
     if (filters?.paymentDescription) {
       params = params.set('paymentDescription', filters.paymentDescription);

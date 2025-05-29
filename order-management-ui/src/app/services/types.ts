@@ -12,3 +12,8 @@ export interface CreateOrderDto {
 export interface Order extends CreateOrderDto {
   id: number | string;
 }
+
+export interface OrderFilter {
+  paymentDescription?: string;
+  country?: string;
+}
