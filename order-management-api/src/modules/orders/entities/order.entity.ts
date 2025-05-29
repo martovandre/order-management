@@ -1,17 +1,17 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
   Unique,
+  PrimaryColumn,
 } from 'typeorm';
 
 @Entity('orders')
 @Unique(['orderNumber'])
 export class Order {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryColumn()
+  id: string;
 
   @Column()
   orderNumber: string;

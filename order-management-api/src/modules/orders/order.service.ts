@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
 import { FindOptionsWhere, ILike, Repository } from 'typeorm';
 import { OrderFilterDto } from './dto/order-filter.dto';
+import { generateOrderId } from '../../helpers/generate-order-id';
 
 @Injectable()
 export class OrderService {
@@ -23,7 +24,10 @@ export class OrderService {
         `Order number "${orderData.orderNumber}" already exists.`,
       );
     }
-    const order = this.orderRepository.create(orderData);
+    const order = this.orderRepository.create({
+      id: generateOrderId(),
+      ...orderData,
+    });
     return this.orderRepository.save(order);
   }
 

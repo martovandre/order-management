@@ -6,6 +6,7 @@ import { Order } from './entities/order.entity';
 import { ILike, Repository } from 'typeorm';
 import { ConflictException } from '@nestjs/common';
 import { OrderFilterDto } from './dto/order-filter.dto';
+import { generateOrderId } from '../../helpers/generate-order-id';
 
 describe('OrderService', () => {
   let service: OrderService;
@@ -32,7 +33,10 @@ describe('OrderService', () => {
 
   describe('create', () => {
     it('should create and return a new order if order number is unique', async () => {
-      const orderData = { orderNumber: '123' } as Partial<Order>;
+      const orderData = {
+        id: generateOrderId(),
+        orderNumber: '123',
+      } as Partial<Order>;
       const createdOrder = { id: 1, ...orderData } as Order;
 
       repository.find.mockResolvedValue([]);
@@ -67,7 +71,7 @@ describe('OrderService', () => {
       };
 
       const expectedOrders = [
-        { id: 1, paymentDescription: 'PayPal', country: 'USA' },
+        { id: generateOrderId(), paymentDescription: 'PayPal', country: 'USA' },
       ] as Order[];
 
       repository.find.mockResolvedValue(expectedOrders);
@@ -85,7 +89,7 @@ describe('OrderService', () => {
     });
 
     it('should return all orders if no filters are provided', async () => {
-      const expectedOrders = [{ id: 1 }] as Order[];
+      const expectedOrders = [{ id: generateOrderId() }] as Order[];
       repository.find.mockResolvedValue(expectedOrders);
 
       const result = await service.findAll();
