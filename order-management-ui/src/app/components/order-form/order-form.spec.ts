@@ -23,7 +23,7 @@ describe('OrderFormComponent', () => {
         { provide: OrderService, useValue: mockOrderService },
         { provide: MatDialogRef, useValue: mockDialogRef },
         { provide: MatSnackBar, useValue: mockSnackBar },
-      ]
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(OrderFormComponent);
@@ -39,16 +39,16 @@ describe('OrderFormComponent', () => {
 
   it('should call addOrder and close dialog on success', () => {
     const mockOrder = {
-        id: 1,
-        orderNumber: '1234',
-        paymentDescription: 'Test',
-        streetAddress: 'Street 1',
-        town: 'Townsville',
-        country: 'Countryland',
-        amount: 100,
-        currency: 'USD',
-        paymentDueDate: new Date('2025-12-31'),
-    }
+      id: 1,
+      orderNumber: '1234',
+      paymentDescription: 'Test',
+      streetAddress: 'Street 1',
+      town: 'Townsville',
+      country: 'Countryland',
+      amount: 100,
+      currency: 'USD',
+      paymentDueDate: new Date('2025-12-31'),
+    };
 
     component.orderForm.setValue({
       orderNumber: '1234',
@@ -81,10 +81,16 @@ describe('OrderFormComponent', () => {
       paymentDueDate: '2025-12-31',
     });
 
-    mockOrderService.addOrder.and.returnValue(throwError(() => new Error('Server error')));
+    mockOrderService.addOrder.and.returnValue(
+      throwError(() => new Error('Server error')),
+    );
 
     component.onSubmit();
 
-    expect(mockSnackBar.open).toHaveBeenCalledWith('Server error', 'Close', jasmine.any(Object));
+    expect(mockSnackBar.open).toHaveBeenCalledWith(
+      'Server error',
+      'Close',
+      jasmine.any(Object),
+    );
   });
 });

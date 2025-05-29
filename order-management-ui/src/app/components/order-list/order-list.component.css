@@ -1,56 +1,56 @@
 :host {
-    display: block;
-    padding: 2rem;
-    background-color: #fafafa;
-    font-family: Roboto, sans-serif;
-  }
-  
-  .filter-controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    align-items: flex-end;
-  }
+  display: block;
+  padding: 2rem;
+  background-color: #fafafa;
+  font-family: Roboto, sans-serif;
+}
 
-  .filter-bar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  
-  mat-form-field {
-    flex: 1 1 200px;
-    min-width: 200px;
-  }
-  
-  table {
-    width: 100%;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  .mat-elevation-z8 {
-    border-radius: 8px;
-    background: white;
-  }
-  
-  th.mat-header-cell {
-    background-color: #f5f5f5;
-    font-weight: bold;
-    font-size: 14px;
-  }
-  
-  td.mat-cell, th.mat-header-cell {
-    padding: 1rem;
-  }
-  
-  td.mat-cell {
-    font-size: 14px;
-  }
-  
-  button[mat-flat-button] {
-    height: 40px;
-    font-weight: 500;
-  }
-  
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: flex-end;
+}
+
+.filter-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+mat-form-field {
+  flex: 1 1 200px;
+  min-width: 200px;
+}
+
+table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mat-elevation-z8 {
+  border-radius: 8px;
+  background: white;
+}
+
+th.mat-header-cell {
+  background-color: #f5f5f5;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+td.mat-cell,
+th.mat-header-cell {
+  padding: 1rem;
+}
+
+td.mat-cell {
+  font-size: 14px;
+}
+
+button[mat-flat-button] {
+  height: 40px;
+  font-weight: 500;
+}

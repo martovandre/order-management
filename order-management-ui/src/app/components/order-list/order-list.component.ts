@@ -24,34 +24,39 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
 })
-
 export class OrderListComponent implements OnInit {
   orders: Order[] = [];
   countryFilter = '';
   descriptionFilter = '';
   displayedColumns = ['orderNumber', 'description', 'country', 'dueDate'];
 
-  constructor(public orderService: OrderService, private dialog: MatDialog, private snackBar: MatSnackBar) {}
+  constructor(
+    public orderService: OrderService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+  ) {}
 
   ngOnInit() {
     this.loadOrders();
   }
 
   loadOrders() {
-    this.orderService.getOrders({
-      paymentDescription: this.descriptionFilter,
-      country: this.countryFilter,
-    }).subscribe({
-      next: (data) => {
-        this.orders = this.sortOrders(data);
-      },
-      error: (err) => {
-        console.error('Failed to fetch orders:', err);
-      }
-    });
+    this.orderService
+      .getOrders({
+        paymentDescription: this.descriptionFilter,
+        country: this.countryFilter,
+      })
+      .subscribe({
+        next: (data) => {
+          this.orders = this.sortOrders(data);
+        },
+        error: (err) => {
+          console.error('Failed to fetch orders:', err);
+        },
+      });
   }
 
   onFiltersChanged() {
@@ -62,10 +67,10 @@ export class OrderListComponent implements OnInit {
     return orders.sort((a, b) => {
       const isAEstonia = a.country?.toLowerCase() === 'estonia';
       const isBEstonia = b.country?.toLowerCase() === 'estonia';
-  
+
       if (isAEstonia && !isBEstonia) return -1;
       if (!isAEstonia && isBEstonia) return 1;
-  
+
       const dateA = new Date(a.paymentDueDate).getTime();
       const dateB = new Date(b.paymentDueDate).getTime();
       return dateA - dateB;
@@ -79,7 +84,7 @@ export class OrderListComponent implements OnInit {
       disableClose: true,
       autoFocus: false,
     });
-  
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'created') {
         this.loadOrders();

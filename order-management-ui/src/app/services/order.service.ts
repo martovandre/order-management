@@ -8,7 +8,6 @@ import { CreateOrderDto } from './types';
 @Injectable({
   providedIn: 'root',
 })
-
 @Injectable({ providedIn: 'root' })
 export class OrderService {
   constructor(private http: HttpClient) {}
@@ -24,7 +23,7 @@ export class OrderService {
       catchError((error) => {
         const userMessage = error?.error?.message || 'Something went wrong';
         return throwError(() => new Error(userMessage));
-      })
+      }),
     );
   }
 

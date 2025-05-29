@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { FormGroup, Validators, ReactiveFormsModule, FormControl, NonNullableFormBuilder } from '@angular/forms';
+import {
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+  FormControl,
+  NonNullableFormBuilder,
+} from '@angular/forms';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,7 +31,7 @@ import { CreateOrderDto } from '../../services/types';
 })
 export class OrderFormComponent {
   orderForm: FormGroup<{
-    [K in keyof CreateOrderDto]: FormControl<CreateOrderDto[K]>
+    [K in keyof CreateOrderDto]: FormControl<CreateOrderDto[K]>;
   }>;
   error = '';
 
@@ -33,7 +39,7 @@ export class OrderFormComponent {
     private fb: NonNullableFormBuilder,
     private dialogRef: MatDialogRef<OrderFormComponent>,
     private orderService: OrderService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {
     this.orderForm = this.fb.group({
       orderNumber: ['', Validators.required],
@@ -49,21 +55,22 @@ export class OrderFormComponent {
 
   onSubmit() {
     if (this.orderForm.valid) {
-      this.orderService.addOrder(this.orderForm.value as CreateOrderDto).subscribe({
-        next: () => {
-          this.dialogRef.close('created');
-        },
-        error: (error) => {
-          const message = error?.message || 'Failed to create order.';
-          this.snackBar.open(`${message}`, 'Close', {
-            duration: 5000,
-            panelClass: ['snackbar-error'],
-          });
-        }
-      });
+      this.orderService
+        .addOrder(this.orderForm.value as CreateOrderDto)
+        .subscribe({
+          next: () => {
+            this.dialogRef.close('created');
+          },
+          error: (error) => {
+            const message = error?.message || 'Failed to create order.';
+            this.snackBar.open(`${message}`, 'Close', {
+              duration: 5000,
+              panelClass: ['snackbar-error'],
+            });
+          },
+        });
     }
   }
-  
 
   close() {
     this.dialogRef.close();

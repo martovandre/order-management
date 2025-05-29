@@ -4,11 +4,11 @@ import { OrderListComponent } from './components/order-list/order-list.component
 
 export const routes: Routes = [
   { path: 'orders', component: OrderListComponent },
-  { path: '', redirectTo: 'orders', pathMatch: 'full' }
+  { path: '', redirectTo: 'orders', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule, ]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

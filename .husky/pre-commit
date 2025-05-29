@@ -1,0 +1,19 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "Running pre-commit checks..."
+
+# Lint and check formatting in API
+cd order-management-api
+npm install --no-audit --no-fund
+npm run lint
+npm run format:check
+
+# Lint and check formatting in UI
+cd ../order-management-ui
+npm install --no-audit --no-fund
+npm run lint
+npm run format:check
+
+# Back to root
+cd ..
