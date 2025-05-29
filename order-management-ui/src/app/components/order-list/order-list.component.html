@@ -24,8 +24,13 @@
 </div>
 
 <table mat-table [dataSource]="orders" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>#</th>
+    <td mat-cell *matCellDef="let order">{{ order.id }}</td>
+  </ng-container>
+
   <ng-container matColumnDef="orderNumber">
-    <th mat-header-cell *matHeaderCellDef>Order #</th>
+    <th mat-header-cell *matHeaderCellDef>Order number</th>
     <td mat-cell *matCellDef="let order">{{ order.orderNumber }}</td>
   </ng-container>
 

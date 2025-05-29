@@ -15,7 +15,7 @@ describe('OrderListComponent', () => {
 
   const mockOrders: Order[] = [
     {
-      id: 1,
+      id: 'ORD-1',
       orderNumber: '001',
       paymentDescription: 'Credit Card Payment',
       streetAddress: '123 Main St',

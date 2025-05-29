@@ -31,7 +31,7 @@ export class OrderListComponent implements OnInit {
   orders: Order[] = [];
   countryFilter = '';
   descriptionFilter = '';
-  displayedColumns = ['orderNumber', 'description', 'country', 'dueDate'];
+  displayedColumns = ['id', 'orderNumber', 'description', 'country', 'dueDate'];
 
   constructor(
     public orderService: OrderService,

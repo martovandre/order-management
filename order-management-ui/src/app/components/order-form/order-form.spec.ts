@@ -39,7 +39,7 @@ describe('OrderFormComponent', () => {
 
   it('should call addOrder and close dialog on success', () => {
     const mockOrder = {
-      id: 1,
+      id: 'ORD-1',
       orderNumber: '1234',
       paymentDescription: 'Test',
       streetAddress: 'Street 1',
