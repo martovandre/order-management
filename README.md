@@ -74,7 +74,7 @@ docker-compose up --build
 This will:
 
 Launch the PostgreSQL container on port 5432
-
 Start the NestJS API at http://localhost:3000
+Start the Angluar FE at http://localhost:4200
 
 📌 Note: Do not run this inside order-management-api or order-management-ui — it must be executed from the project root.

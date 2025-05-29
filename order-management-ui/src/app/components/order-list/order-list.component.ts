@@ -46,7 +46,7 @@ export class OrderListComponent implements OnInit {
       country: this.countryFilter,
     }).subscribe({
       next: (data) => {
-        this.orders = data;
+        this.orders = this.sortOrders(data);
       },
       error: (err) => {
         console.error('Failed to fetch orders:', err);
@@ -56,6 +56,20 @@ export class OrderListComponent implements OnInit {
 
   onFiltersChanged() {
     this.loadOrders();
+  }
+
+  private sortOrders(orders: Order[]): Order[] {
+    return orders.sort((a, b) => {
+      const isAEstonia = a.country?.toLowerCase() === 'estonia';
+      const isBEstonia = b.country?.toLowerCase() === 'estonia';
+  
+      if (isAEstonia && !isBEstonia) return -1;
+      if (!isAEstonia && isBEstonia) return 1;
+  
+      const dateA = new Date(a.paymentDueDate).getTime();
+      const dateB = new Date(b.paymentDueDate).getTime();
+      return dateA - dateB;
+    });
   }
 
   openForm() {
